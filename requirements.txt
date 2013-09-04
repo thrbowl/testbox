@@ -1,5 +1,6 @@
 Flask==0.10.1
 Flask-Script==0.6.2
 Flask-WTF==0.9.1
+Flask-Security==1.6.9
 SQLAlchemy==0.8.2
 ipython==1.0.0
