@@ -1,7 +1,7 @@
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
-from commands import manager
+from testbox.commands import manager
 from testbox import create_app
 
 

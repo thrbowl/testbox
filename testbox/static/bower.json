@@ -1,0 +1,11 @@
+{
+  "name": "testbox",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": ">=3.0.0",
+    "flot": ">=0.8.1",
+    "font-awesome": ">=3.2.1",
+    "jquery": ">=2.0.3",
+    "select2": ">=3.4.2"
+  }
+}
