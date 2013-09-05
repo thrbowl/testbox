@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from auth.view import auth
 
 
 def create_app(name=None, settings=None):
@@ -16,7 +17,7 @@ def create_app(name=None, settings=None):
         app.config.from_object(settings)
     app.config.from_envvar('TESTBOX_SETTINGS', silent=True)
 
-    #TODO *register blueprint to application*
+    app.register_blueprint(auth, url_prefix='/auth')
 
     @app.errorhandler(404)
     def page_not_found(error):
