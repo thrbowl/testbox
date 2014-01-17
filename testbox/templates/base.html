@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ static('components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Ext stylesheet-->
+    {% block stylesheet %}{% endblock %}
 </head>
 <body>
-{% block body %} {% endblock %}
+{% block body %}
+{% endblock %}
+<script src="{{ static('components/jquery/jquery.min.js') }}"></script>
+<script src="{{ static('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+<!-- Ext JavaScript-->
+{% block javascript %}{% endblock %}
 </body>
 </html>

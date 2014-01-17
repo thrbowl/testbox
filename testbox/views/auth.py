@@ -8,5 +8,6 @@ def login():
     return render_template('auth/login.html')
 
 
+@auth.route('/login', methods=['POST'])
 def logout():
     pass

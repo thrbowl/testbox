@@ -9,28 +9,34 @@ except:
 
 
 def create_app(name=None, settings=None):
-    """http://flask.pocoo.org/docs/patterns/appfactories/
-    """
-    if name is None:
-        name = __name__
+    """http://flask.pocoo.org/docs/patterns/appfactories/"""
+    app = Flask(name or __name__)
 
-    app = Flask(name)
-
-    default_settings = os.path.join(app.root_path, 'settings.cfg')
-    app.config.from_pyfile(default_settings)
+    # register settings
+    # priority: env variable > params > settings.cfg
+    app.config.from_pyfile('settings.cfg')
     if settings is not None:
-        app.config.from_object(settings)
+        if isinstance(object, settings):
+            app.config.from_object(settings)
+        elif os.path.isfile(os.path.join(app.root_path, settings)):
+            app.config.from_pyfile(settings)
     app.config.from_envvar('TESTBOX_SETTINGS', silent=True)
 
-    logging.debug('Register blueprints to app')
+    logging.debug('register blueprints to app')
+    from .views.main import main
+    app.register_blueprint(main)
     from .views.auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
 
-    logging.debug('Add global templates function')
+    logging.debug('add global templates function')
     app.jinja_env.globals['static'] = (lambda filename: url_for('static', filename=filename))
 
     @app.errorhandler(404)
-    def page_not_found(error):
+    def http404(error):
         return render_template('404.html'), 404
+
+    @app.errorhandler(500)
+    def http500(error):
+        return render_template('500.html'), 500
 
     return app
