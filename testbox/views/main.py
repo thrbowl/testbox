@@ -4,7 +4,7 @@ from flask.ext.login import login_required
 main = Blueprint('main', __name__)
 
 @main.route('/', methods=['GET'])
-@login_required
+@login_required('user')
 def index():
     return 'OK'
 
