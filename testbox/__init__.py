@@ -1,11 +1,10 @@
-import os, logging
+# -*- coding: utf-8 -*-
+import monkey
+monkey.patch_all()
+import os
+import logging
 from flask import Flask, render_template, url_for
-
-try:
-    import pkg_resources
-    __version__ = pkg_resources.get_distribution(__name__).version
-except:
-    __version__ = '<unknown>'
+from flask.ext.login import LoginManager
 
 
 def create_app(name=None, settings=None):
@@ -13,8 +12,8 @@ def create_app(name=None, settings=None):
     app = Flask(name or __name__)
 
     # register settings
-    # priority: env variable > params > settings.cfg
-    app.config.from_pyfile('settings.cfg')
+    # priority: env variable > params > settings.py
+    app.config.from_pyfile('settings.py')
     if settings is not None:
         if isinstance(object, settings):
             app.config.from_object(settings)
@@ -22,15 +21,20 @@ def create_app(name=None, settings=None):
             app.config.from_pyfile(settings)
     app.config.from_envvar('TESTBOX_SETTINGS', silent=True)
 
+    logging.debug('add session SECRET_KEY')
+    app.secret_key = app.config['SECRET_KEY']
+
     logging.debug('register blueprints to app')
-    from .views.main import main
-    app.register_blueprint(main)
-    from .views.auth import auth
-    app.register_blueprint(auth, url_prefix='/auth')
+    with app.app_context():
+        from .views.main import main
+        app.register_blueprint(main)
+        from .views.auth import auth
+        app.register_blueprint(auth, url_prefix='/auth')
 
     logging.debug('add global templates function')
     app.jinja_env.globals['static'] = (lambda filename: url_for('static', filename=filename))
 
+    logging.debug('register error process handlers')
     @app.errorhandler(404)
     def http404(error):
         return render_template('404.html'), 404
@@ -38,5 +42,29 @@ def create_app(name=None, settings=None):
     @app.errorhandler(500)
     def http500(error):
         return render_template('500.html'), 500
+
+    logging.debug('add database auto commit callback')
+    @app.teardown_request
+    def teardown_request(e=None):
+        from .models import db
+        try:
+            if e is None:
+                try:
+                    db.session.commit()
+                except Exception, e:
+                    logging.error(str(e))
+                    db.session.rollback()
+        finally:
+            db.session.remove()
+
+    logging.debug('add user login manager')
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
+
+    @login_manager.user_loader
+    def user_loader(user_id):
+        from .models import User
+        return User.query.get(int(user_id))
 
     return app

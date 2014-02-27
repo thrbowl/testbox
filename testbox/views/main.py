@@ -1,8 +1,13 @@
 from flask import Blueprint, render_template, url_for, current_app
+from flask.ext.login import login_required
 
 main = Blueprint('main', __name__)
 
-
 @main.route('/', methods=['GET'])
-def login():
-    return render_template('home.html')
+@login_required
+def index():
+    return 'OK'
+
+@main.route('/releasenotes', methods=['GET'])
+def releasenotes():
+    return 'ok'
