@@ -17,7 +17,9 @@ def permission_required(permission):
             elif not current_user.has_perm(permission):
                 raise RuntimeError('Permission is prohibited')
             return func(*args, **kwargs)
+
         return decorated_view
+
     return _permission_required
 
 
@@ -27,7 +29,7 @@ def _dispatch_required(x):
     elif isinstance(x, basestring):
         return permission_required(x)
     else:
-        raise ValueError('The argument is invalid.')
+        raise ValueError('The argument is invalid')
 
 
 def patch_login_required():
