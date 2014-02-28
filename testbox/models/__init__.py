@@ -94,7 +94,7 @@ class User(db.Model, UserMixin):
         return perm in self.get_all_permissions()
 
 
-class TestCase(db.Model):
-    id = Column()
-    caseid = Column()
-    description = Column()
+# class TestCase(db.Model):
+#     id = Column()
+#     caseid = Column()
+#     description = Column()

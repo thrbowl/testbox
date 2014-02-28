@@ -5,6 +5,7 @@ main = Blueprint('main', __name__)
 
 
 @main.route('/', methods=['GET'])
+@login_required
 def index():
     return 'OK'
 

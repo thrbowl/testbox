@@ -23,11 +23,13 @@ def permission_required(permission):
     return _permission_required
 
 
-def _dispatch_required(x):
+def _dispatch_required(x=None):
     if type(x) == FunctionType:
         return login_required(x)
     elif isinstance(x, basestring):
         return permission_required(x)
+    elif x is None:
+        return login_required
     else:
         raise ValueError('The argument is invalid')
 
