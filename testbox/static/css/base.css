@@ -1,0 +1,38 @@
+.container {
+    width: auto;
+}
+
+.navbar-inverse {
+    background-color: #438EB9;
+    border: 0;
+}
+.navbar-inverse
+.navbar-brand {
+    color: #FFFFFF;
+}
+.navbar-nav > li.grey > a {
+    background-color: #555555;
+}
+.navbar-nav > li > a {
+    color: #FFFFFF;
+    display: block;
+    height: 100%;
+    line-height: inherit;
+    min-width: 50px;
+    position: relative;
+    text-align: center;
+    width: auto;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #d3d3d3;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #d3d3d3;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #d3d3d3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #d3d3d3;
+}

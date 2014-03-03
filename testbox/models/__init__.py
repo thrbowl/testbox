@@ -65,6 +65,8 @@ class Role(db.Model):
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'user'
+
     id = Column(Integer, primary_key=True)
     coreid = Column(String(32), unique=True, nullable=False)
     name = Column(String(32), nullable=False)
@@ -94,7 +96,29 @@ class User(db.Model, UserMixin):
         return perm in self.get_all_permissions()
 
 
-# class TestCase(db.Model):
-#     id = Column()
-#     caseid = Column()
-#     description = Column()
+class NodeTypes(db.Model):
+    __tablename__ = 'node_types'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
+    description = Column(String(128))
+
+
+class NodesHierarchy(db.Model):
+    __tablename__ = 'nodes_hierarchy'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
+    parent_id = Column(Integer)
+    node_type_id = Column(Integer, nullable=False)
+    node_order = Column(Integer)
+
+
+class TestCase(db.Model):
+    __tablename__ = 'testcase'
+
+    id = Column(Integer, primary_key=True)
+    caseid = Column(String(32), unique=True, nullable=False)
+    name = Column(String(128), nullable=False)
+    script = Column(String(128), nullable=False)
+    description = Column(String(128))

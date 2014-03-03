@@ -1,16 +1,13 @@
 .container {
     text-align: center;
 }
-
 .logo {
     margin: 6px;
     text-align: left;
 }
-
 #window-signin {
     margin-top: 30px;
 }
-
 #title-signin,
 #form-signin {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
@@ -18,30 +15,21 @@
     max-width: 350px;
     margin: 0 auto;
 }
-
 #title-signin {
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 1px;
 }
-
 #form-signin .checkbox {
     font-weight: normal;
 }
-
-#form-signin .form-control {
-    color: #d3d3d3;
-}
-
 .note {
     margin-top: 40px;
     font-size: 16px;
 }
-
 #project_version {
     font-size: 11px;
 }
-
 #project_version a {
     color: #808080;
 }

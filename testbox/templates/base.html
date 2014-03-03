@@ -5,7 +5,7 @@
 <!--[if IE 9 ]> <html class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
 <head>
-    <title>Freescale Semiconductor | {% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} | Freescale Semiconductor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ static('img/favicon.ico') }}" type="image/x-icon">
@@ -28,9 +28,13 @@
     {%- block stylesheet %}{% endblock -%}
 </head>
 <body>
-{% block body %}
+{%- block body_header %}
+{% include "header.html" -%}
+{% endblock -%}
+{%- block body_main %}
 {% endblock -%}
 <script src="{{ static('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ static('components/holderjs/holder.js') }}"></script>
 <script src="{{ static('js/base.js') }}"></script>
 <!-- Ext JavaScript-->
 {%- block javascript %}{% endblock -%}
