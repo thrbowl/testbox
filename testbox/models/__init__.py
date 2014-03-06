@@ -68,7 +68,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    coreid = Column(String(32), unique=True, nullable=False)
+    coreid = Column(String(32), unique=True, nullable=False, index=True)
     name = Column(String(32), nullable=False)
     email = Column(String(64), nullable=False)
     is_active = Column(Boolean, nullable=False, default=True)
@@ -118,7 +118,7 @@ class TestCase(db.Model):
     __tablename__ = 'testcase'
 
     id = Column(Integer, primary_key=True)
-    caseid = Column(String(32), unique=True, nullable=False)
+    caseid = Column(String(32), unique=True, nullable=False, index=True)
     name = Column(String(128), nullable=False)
     script = Column(String(128), nullable=False)
     description = Column(String(128))
