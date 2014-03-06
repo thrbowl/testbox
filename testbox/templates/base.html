@@ -32,6 +32,10 @@
 {% include "header.html" -%}
 {% endblock -%}
 {%- block body_main %}
+<div class="container">
+{% include "sidebar.html" -%}
+{%- block body_content %}{% endblock -%}
+</div>
 {% endblock -%}
 {% include "footer.html" -%}
 <script src="{{ static('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
