@@ -1,23 +1,31 @@
-<header class="navbar navbar-inverse navbar-static-top">
-    <div class="container">
-        <div class="navbar-header hidden-xs">
-            <span class="navbar-brand"><i class="fa fa-leaf"></i> My Test Box</span>
-        </div>
-        <nav class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks"></i> Tasks <span class="badge">4</span> <i class="fa fa-caret-down"></i>
+<div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small><i class="icon-leaf"></i> {{ config.PROJECT_NAME }}</small>
+            </a><!-- /.brand -->
+        </div><!-- /.navbar-header -->
+
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="green">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-tasks"></i><span class="badge badge-success">4</span>
                     </a>
-                    <ul class="dropdown-navbar navbar-grey dropdown-menu pull-right dropdown-caret">
+
+                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                         <li class="dropdown-header">
-                            <i class="fa fa-vimeo-square"></i>
-                            4 Tasks to complete
+                            <i class="icon-ok"></i>
+                            还有4个任务完成
                         </li>
                         <li>
                             <a href="#">
                                 <div class="clearfix">
-                                    <span class="pull-left">Software Update</span>
+                                    <span class="pull-left">软件更新</span>
                                     <span class="pull-right">65%</span>
                                 </div>
 
@@ -29,7 +37,7 @@
                         <li>
                             <a href="#">
                                 <div class="clearfix">
-                                    <span class="pull-left">Hardware Upgrade</span>
+                                    <span class="pull-left">硬件更新</span>
                                     <span class="pull-right">35%</span>
                                 </div>
 
@@ -41,7 +49,7 @@
                         <li>
                             <a href="#">
                                 <div class="clearfix">
-                                    <span class="pull-left">Unit Testing</span>
+                                    <span class="pull-left">单元测试</span>
                                     <span class="pull-right">15%</span>
                                 </div>
 
@@ -53,7 +61,7 @@
                         <li>
                             <a href="#">
                                 <div class="clearfix">
-                                    <span class="pull-left">Bug Fixes</span>
+                                    <span class="pull-left">错误修复</span>
                                     <span class="pull-right">90%</span>
                                 </div>
 
@@ -64,24 +72,45 @@
                         </li>
                         <li>
                             <a href="#">
-                                See tasks with details
+                                查看任务详情
                                 <i class="icon-arrow-right"></i>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Yunlong Mao <i class="fa fa-caret-down"></i>
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                        <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                								<span class="user-info">
+                									<small>欢迎光临,</small>
+                									Jason
+                								</span>
+
+                        <i class="icon-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu pull-right dropdown-caret">
-                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="#">
+                                <i class="icon-cog"></i>
+                                设置
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-user"></i>
+                                个人资料
+                            </a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> Sign Out</a></li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-off"></i>
+                                退出
+                            </a>
+                        </li>
                     </ul>
                 </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+            </ul><!-- /.ace-nav -->
+        </div><!-- /.navbar-header -->
+    </div><!-- /.container -->
+</div>

@@ -117,8 +117,7 @@ class NodesHierarchy(db.Model):
 class TestCase(db.Model):
     __tablename__ = 'testcase'
 
-    id = Column(Integer, primary_key=True)
-    caseid = Column(String(32), unique=True, nullable=False, index=True)
+    caseid = Column(String(32), primary_key=True)
     name = Column(String(128), nullable=False)
     script = Column(String(128), nullable=False)
     description = Column(String(128))
