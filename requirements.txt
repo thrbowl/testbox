@@ -6,3 +6,5 @@ Flask-WTF
 SQLAlchemy
 MySQL-python
 WTForms
+TestLink-API-Python-client
+redis

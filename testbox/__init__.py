@@ -32,6 +32,8 @@ def create_app(name=None, settings=None):
         app.register_blueprint(auth, url_prefix='/auth')
         from .views.dashboard import dashboard
         app.register_blueprint(dashboard, url_prefix='/dashboard')
+        from .views.testcase import testcase
+        app.register_blueprint(testcase, url_prefix='/testcase')
 
     logging.debug('add global templates function')
     app.jinja_env.globals['static'] = (lambda filename: url_for('static', filename=filename))
