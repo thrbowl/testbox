@@ -31,13 +31,13 @@ r_p_association = Table('role_permission', db.metadata,
 
 u_r_association = Table('user_role', db.metadata,
     Column('id', Integer, primary_key=True),
-    Column('user_id', String(32), ForeignKey('user.id'), nullable=False),
+    Column('user_id', Integer, ForeignKey('user.id'), nullable=False),
     Column('role_id', Integer, ForeignKey('role.id'), nullable=False)
 )
 
 u_p_association = Table('user_permissions', db.metadata,
     Column('id', Integer, primary_key=True),
-    Column('user_id', String(32), ForeignKey('user.id'), nullable=False),
+    Column('user_id', Integer, ForeignKey('user.id'), nullable=False),
     Column('permission_id', Integer, ForeignKey('permission.id'), nullable=False)
 )
 
@@ -67,7 +67,8 @@ class Role(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
-    id = Column(String(32), primary_key=True)
+    id = Column(Integer, autoincrement=True, nullable=False, unique=True, index=True)
+    coreid = Column(String(32), primary_key=True)
     name = Column(String(32), nullable=False)
     email = Column(String(64), nullable=False)
     is_active = Column(Boolean, nullable=False, default=True)
@@ -98,7 +99,7 @@ class User(db.Model, UserMixin):
 class UserConfig(db.Model):
     __tablename__ = 'user_config'
 
-    user_id = Column(String(32), ForeignKey('user.id'), nullable=False, primary_key=True)
+    coreid = Column(String(32), primary_key=True)
     testlink_devkey = Column(String(32), unique=True)
 
     def __init__(self):
@@ -117,7 +118,7 @@ class NodesHierarchy(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
-    parent_id = Column(Integer)
+    parent_id = Column(Integer, nullable=False)
     node_type_id = Column(Integer, nullable=False)
     node_order = Column(Integer)
 
@@ -125,12 +126,14 @@ class NodesHierarchy(db.Model):
 class TestCase(db.Model):
     __tablename__ = 'testcase'
 
-    id = Column(String(32), primary_key=True)
-    name = Column(String(128), nullable=False)
+    id = Column(Integer, nullable=False, unique=True, index=True)
+    caseid = Column(String(32), primary_key=True)
     script = Column(String(128), nullable=False)
     description = Column(String(128))
+
 
 class SystemConfig(db.Model):
     __tablename__ = 'system_config'
 
+    id = Column(Integer, primary_key=True)
     testlink_api = Column(String(128))
