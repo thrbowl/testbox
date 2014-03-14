@@ -80,10 +80,10 @@
                 </li>
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
-                								<span class="user-info">
-                									<small>欢迎光临,</small>
-                									Jason
+                        <img class="nav-user-photo" src="http://freeshare.freescale.net:2222/my/User Photos/Profile Pictures/FSL_B39513_MThumb.jpg" alt="Jason's Photo" />
+                								<span class="user-info" title="{{ current_user.name }}">
+                									<small>Welcome,</small>
+                									{{ current_user.name }}
                 								</span>
 
                         <i class="icon-caret-down"></i>
@@ -103,7 +103,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a href="{{ url_for('auth.logout') }}">
                                 <i class="icon-off"></i>
                                 退出
                             </a>

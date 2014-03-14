@@ -67,21 +67,41 @@ class Role(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
-    id = Column(Integer, autoincrement=True, nullable=False, unique=True, index=True)
-    coreid = Column(String(32), primary_key=True)
+    id = Column(Integer, primary_key=True)
+    coreid = Column(String(32), nullable=False, unique=True, index=True)
     name = Column(String(32), nullable=False)
     email = Column(String(64), nullable=False)
-    is_active = Column(Boolean, nullable=False, default=True)
+    _is_active = Column('is_active', Boolean, nullable=False, default=True)
     is_superuser = Column(Boolean, nullable=False, default=False)
     last_login = Column(DateTime, nullable=False)
     date_joined = Column(DateTime, nullable=False)
 
     roles = relationship('Role', secondary=u_r_association)
     permissions = relationship('Permission', secondary=u_p_association)
-    config = relationship('UserConfig', backref('owner'))
+#    config = relationship('UserConfig', backref('owner'))
 
-    def __init__(self):
-        pass
+    def __init__(self, coreid, name, email):
+        self.coreid = coreid
+        self.name = name
+        self.email = email
+        self.date_joined = self.last_login = datetime.datetime.now()
+        self._is_active = True
+
+    @classmethod
+    def get(cls, coreid):
+        try:
+            return cls.query.filter(cls.coreid == coreid).one()
+        except NoResultFound:
+            return None
+
+    def is_active(self):
+        return self._is_active
+
+    def disable(self):
+        self._is_active = False
+
+    def enable(self):
+        self._is_active = True
 
     def get_all_permissions(self):
         if not hasattr(self, '_perm_cache'):
@@ -96,10 +116,11 @@ class User(db.Model, UserMixin):
     def has_perm(self, perm):
         return perm in self.get_all_permissions()
 
+
 class UserConfig(db.Model):
     __tablename__ = 'user_config'
 
-    coreid = Column(String(32), primary_key=True)
+    id = Column(Integer, primary_key=True)
     testlink_devkey = Column(String(32), unique=True)
 
     def __init__(self):
@@ -118,22 +139,35 @@ class NodesHierarchy(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
-    parent_id = Column(Integer, nullable=False)
+    parent_id = Column(Integer, ForeignKey('nodes_hierarchy.id'), nullable=False)
     node_type_id = Column(Integer, nullable=False)
     node_order = Column(Integer)
+
+    children = relationship('NodesHierarchy', backref=backref('parent', remote_side=[id]))
+
+    def __init__(self, name, parent_id, node_type_id):
+        self.name = name
+        self.parent_id = parent_id
+        self.node_type_id = node_type_id
 
 
 class TestCase(db.Model):
     __tablename__ = 'testcase'
 
-    id = Column(Integer, nullable=False, unique=True, index=True)
-    caseid = Column(String(32), primary_key=True)
+    id = Column(Integer, primary_key=True)
+    caseid = Column(String(32), nullable=False, unique=True, index=True)
     script = Column(String(128), nullable=False)
     description = Column(String(128))
+
+    def __init__(self, id, caseid, script):
+        self.id = id
+        self.caseid = caseid
+        self.script = script
 
 
 class SystemConfig(db.Model):
     __tablename__ = 'system_config'
 
     id = Column(Integer, primary_key=True)
-    testlink_api = Column(String(128))
+    testlink_devkey = Column(String(32), unique=True)
+    testlink_server_url = Column(String(128))

@@ -4,5 +4,7 @@ from flask.ext.login import login_required
 testcase = Blueprint('testcase', __name__)
 
 @testcase.route('/', methods=['GET'])
+@login_required
 def index():
+
     return render_template('testcase/index.html')

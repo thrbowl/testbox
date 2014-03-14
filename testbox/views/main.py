@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, current_app
-from flask.ext.login import login_required
+from flask.ext.login import login_required, redirect
 
 main = Blueprint('main', __name__)
 
@@ -7,7 +7,7 @@ main = Blueprint('main', __name__)
 @main.route('/', methods=['GET'])
 @login_required
 def index():
-    return 'OK'
+    return redirect(url_for('dashboard.index'))
 
 
 @main.route('/releasenotes', methods=['GET'])

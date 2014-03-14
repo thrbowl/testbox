@@ -69,6 +69,6 @@ def create_app(name=None, settings=None):
     @login_manager.user_loader
     def user_loader(user_id):
         from .models import User
-        return User.query.get(int(user_id))
+        return User.query.get(user_id)
 
     return app

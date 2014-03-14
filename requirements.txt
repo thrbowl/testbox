@@ -3,6 +3,7 @@ Flask-Script
 Flask-Login
 Flask-SQLAlchemy
 Flask-WTF
+python-ldap
 SQLAlchemy
 MySQL-python
 WTForms

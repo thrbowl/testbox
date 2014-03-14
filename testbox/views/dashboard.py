@@ -4,5 +4,6 @@ from flask.ext.login import login_required
 dashboard = Blueprint('dashboard', __name__)
 
 @dashboard.route('/', methods=['GET'])
+@login_required
 def index():
     return render_template('dashboard/index.html')

@@ -19,3 +19,10 @@ SQLALCHEMY_RECORD_QUERIES = False
 SQLALCHEMY_POOL_SIZE = 5
 SQLALCHEMY_POOL_TIMEOUT = 10
 SQLALCHEMY_POOL_RECYCLE = 2 * 60 * 60
+
+# LDAP
+LDAP_SERVICE_URL = "ldaps://fsl-ids.freescale.net:636"
+LDAP_SERVICE_USER = "cn=weblars_ssl,ou=application users,ou=applications,ou=intranet,dc=motorola,dc=com"
+LDAP_SERVICE_PASSWORD = ")OKMnji9"
+LDAP_PEOPLE_BASE_DN = "ou=people,ou=intranet,dc=motorola,dc=com"
+LDAP_PEOPLE_DN = "motguid=%s," + LDAP_PEOPLE_BASE_DN
